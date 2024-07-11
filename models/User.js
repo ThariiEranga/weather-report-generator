@@ -13,26 +13,10 @@ const userSchema = new schema({
         type:String,
         required:true
     },
-    location:[{
-        latitude: {
-            type: Number,
-            required: true
-        },
-        longitude: {
-            type: Number,
-            required: true
+    location:{
+        type:String,
+        required:true
       }  
-    }],
-    weather_Data:[{
-        date:{
-            type:Date,
-            default:"not assigned"
-        },
-        weather:{
-            type:String,
-            default:"not assigned"
-        }
-    }],
 });
 
 const User = mongoose.model("User",userSchema);
