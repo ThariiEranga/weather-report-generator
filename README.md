@@ -1,5 +1,5 @@
 # weather-report-generator
- This is weather report generator application based on user location.
+ This is weather report generator application based on user location using Node.js.
 
 # Features<br/>
 User Management           : Store user details and update their locations.<br/><br/>
