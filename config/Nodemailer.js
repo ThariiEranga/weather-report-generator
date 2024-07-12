@@ -1,4 +1,5 @@
 const nodemailer = require("nodemailer");
+const {run} = require("./GeminiAI")
 require('dotenv').config();
 
 const transporter = nodemailer.createTransport({
@@ -11,17 +12,20 @@ const transporter = nodemailer.createTransport({
 });
 
 exports.sendMail = async (req, res) => {
-  const { to, subject, text } = req.body;
+  const { to,weatherData  } = req.body;
+
+  const weather = await run(weatherData);
+  console.log(weather);
 
   try {
     const mailOptions = {
       from: {
-        name: 'Weather generator',
+        name: 'Weather Reporter',
         address: process.env.EMAIL
       },
       to,
-      subject,
-      text
+      subject: 'Hourly Weather Report',
+      text: `Current weather: ${weather}`,
     
     };
 

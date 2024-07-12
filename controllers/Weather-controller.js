@@ -1,22 +1,11 @@
 const weatherSchema = require("../models/weather")
 const userSchema = require("../models/User")
 const express = require("express")
-const cron = require('node-cron');
-// const { weatherData } = require('../config/OpenWeatherMap');
-
-// cron.schedule('0 */3 * * *', async () => {
-//     const users = await userSchema.find();
-//     users.forEach(async (user) => {
-//         const WeatherData = await weatherData(user.location);
-//         const weather = new weatherSchema({ userID: user._id,location:user.location, date: new Date(), WeatherData });
-//         await weather.save();
-//     });
-// });
 
 exports.addweather = async (req, res) => {
     try {
-        const { userID,location,date,weather } = req.body;
-    
+        const { userID,location,date, Time ,weather } = req.body;
+      const time = new Date().toLocaleTimeString() || Time
         if ( !userID || !location || !date || !weather) {
           return res.status(400).json({ error: "All fields are required" });
         }
@@ -25,7 +14,7 @@ exports.addweather = async (req, res) => {
           userID: userID,
           location: location,
           date: date.split('T')[0],
-          time: new Date().toLocaleTimeString(),
+          time: time,
           weather: weather,
         });
     

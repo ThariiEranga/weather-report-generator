@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const app = express();
 require("dotenv").config();
-const cornservice = require("./controllers/Weather-controller")
+require("./config/Cron")
 const PORT = process.env.PORT || 3000;
 
 app.use(cors());

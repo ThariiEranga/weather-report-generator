@@ -46,17 +46,28 @@ exports.registation = async (req, res, next) => {
       await newuser.save();
       console.log(newuser);
       const currentDate = new Date().toISOString().split("T")[0];
+      const time = new Date().toLocaleTimeString()
       const newweather = new weatherSchema({
         userID: newuser.id,
         location: location,
         date: currentDate,
+        time: time,
         weather: weather,
       });
 
       await newweather.save();
       console.log(newweather);
 
-      // Respond with success message
+      const emailData = {
+        to: email,
+        weatherData: weather,
+      };
+
+      const response = await axios.post(
+        "http://localhost:3000/weather/sendmail",
+        emailData
+      );
+      console.log(response.data);
       res
         .status(201)
         .json({ message: "User registered successfully", user: newuser });
@@ -120,15 +131,28 @@ exports.login = async (req, res, next) => {
   }
 
   const currentDate = new Date().toISOString().split("T")[0];
+  const time = new Date().toLocaleTimeString()
   const newweather = new weatherSchema({
     userID: existingUser.id,
     location: existingUser.location,
     date: currentDate,
+    time: time,
     weather: weather,
   });
 
   await newweather.save();
   console.log(newweather);
+
+  const emailData = {
+    to: existingUser.email,
+    weatherData: weather,
+  };
+
+  const response = await axios.post(
+    "http://localhost:3000/weather/sendmail",
+    emailData
+  );
+  console.log(response.data);
 
   return res.status(200).json({
     userId: existingUser.id,
@@ -162,15 +186,29 @@ exports.uplocation = async (req, res) => {
     );
 
     const currentDate = new Date().toISOString().split("T")[0];
+    const time = new Date().toLocaleTimeString()
       const newweather = new weatherSchema({
         userID: userID,
         location: location,
         date: currentDate,
+        time: time,
         weather: weather,
       });
 
       await newweather.save();
       console.log(newweather);
+
+      
+  const emailData = {
+    to: updateduser.email,
+    weatherData: weather,
+  };
+
+  const response = await axios.post(
+    "http://localhost:3000/weather/sendmail",
+    emailData
+  );
+  console.log(response.data);
 
     if (!updateduser) {
       return res.status(404).json({ error: "user not found" });
