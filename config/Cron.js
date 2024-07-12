@@ -5,7 +5,7 @@ const { getWeather } = require("../config/OpenWeatherMap");
 const { sendMail } = require("../config/Nodemailer");
 const axios = require("axios");
 
-cron.schedule("*/100 * * * * *", async () => {
+cron.schedule("0 */3 * * *", async () => {
   try {
     const users = await userSchema.find();
 
