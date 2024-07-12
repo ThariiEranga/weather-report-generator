@@ -3,13 +3,14 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const app = express();
 require("dotenv").config();
-
+require("./config/Cron")
 const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
 
 app.use("/user", require("./routes/user-routes"));
+app.use("/weather", require("./routes/weather-routes"))
 
 const URL = process.env.URL;
 mongoose.connect(URL).then(() => {
