@@ -18,7 +18,7 @@ cron.schedule("0 */3 * * *", async () => {
       };
 
       const response = await axios.post(
-        "http://localhost:3000/weather/sendmail",
+        `${process.env.BACKEND_URL}/weather/sendmail`,
         emailData
       );
       console.log(response.data);
