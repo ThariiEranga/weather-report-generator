@@ -64,7 +64,8 @@ exports.registation = async (req, res, next) => {
       };
 
       const response = await axios.post(
-        "https://weather-report-generator.vercel.app/weather/sendmail",
+        `${process.env.BACKEND_URL}/weather/sendmail`,
+
         emailData
       );
       console.log(response.data);
@@ -149,7 +150,7 @@ exports.login = async (req, res, next) => {
   };
 
   const response = await axios.post(
-    "https://weather-report-generator.vercel.app/weather/sendmail",
+    `${process.env.BACKEND_URL}/weather/sendmail`,
     emailData
   );
   console.log(response.data);
@@ -205,7 +206,7 @@ exports.uplocation = async (req, res) => {
   };
 
   const response = await axios.post(
-    "https://weather-report-generator.vercel.app/weather/sendmail",
+    `${process.env.BACKEND_URL}/weather/sendmail`,
     emailData
   );
   console.log(response.data);
